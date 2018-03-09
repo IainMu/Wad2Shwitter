@@ -1,0 +1,22 @@
+body {
+	margin: 0;
+	background: #d4e2f9;
+	}
+div #topbar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width:100vw;
+	background: #a4c5f9;
+	}
+
+div #post{
+	position:relative;
+	width:50vw;
+	left:25vw;
+	border: 2px solid #000000;
+	background:#ffffff;
+	}
+
+p #post {
+	
