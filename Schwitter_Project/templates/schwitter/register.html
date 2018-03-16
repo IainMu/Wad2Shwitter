@@ -9,7 +9,7 @@
 	<h1> Register for Schwitter</h1>
 	{% if registered %}
 		<Strong>Thank you for registering!</strong>
-		<a href="{% url 'index' %}">Return to the homepage.</a><br />
+		<a href="{% url 'home' %}">Return to the homepage.</a><br />
 	{% else %}
 		<strong>Register here!</strong><br />
 		<form id="user_form" method="post" action="{% url 'register' %}"

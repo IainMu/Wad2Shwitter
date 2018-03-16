@@ -13,20 +13,20 @@ class UserProfile(models.Model):
         return self.user.username
 
 class Post(models.Model):
-    poster=models.ForeignKey(UserProfile)
+    poster=models.ForeignKey(UserProfile,on_delete=models.CASCADE)
     title=models.TextField(max_length=15)
     time=models.DateTimeField(auto_now_add=True)
     content=models.TextField(max_length=300)
     likes=models.IntegerField(default=0)
     slug=models.SlugField(unique=True)
 
-    def save(self,*args **kwargs):
+    def save(self,*args,**kwargs):
         self.slug=slugify(self.title)
         super(Post,self).save(*args,**kwargs)
 
 class Comment(models.Model):
-    poster=models.ForeignKey(UserProfile)
-    post=models.ForeignKey(Post)
+    poster=models.ForeignKey(UserProfile,on_delete=models.CASCADE)
+    post=models.ForeignKey(Post,on_delete=models.CASCADE)
     time=models.DateTimeField(auto_now_add=True)
     content=models.TextField(max_length=120)
     likes=models.IntegerField(default=0)

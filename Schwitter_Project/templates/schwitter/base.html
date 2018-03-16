@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
-{% load schwitter_template_tags %}
+
 
 <html>
 	<head>
@@ -20,7 +20,6 @@
 		</div>
 		<div>
 			{% block sidebar_block %}
-				{% get_category_list category %}
 			{% endblock %}
 		</div>
 		<div>

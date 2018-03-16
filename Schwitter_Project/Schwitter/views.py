@@ -11,6 +11,19 @@ from datetime import datetime
 
 # Create your views here.
 
+def main(request):
+    context_dict={}
+    return render(request,'schwitter/home.html',context_dict)
+
+def about(request):
+    context_dict={}
+    return render(request,'schwitter/home.html',context_dict)
+
+    
+def options(request):
+    context_dict={}
+    return render(request,'schwitter/home.html',context_dict)
+
 def viewProfile(request, user):
     context_dict={}
     comments=[]
@@ -28,6 +41,21 @@ def viewPost(request, post):
     comments=Comment.object.filter(post=post.post)
     context_dict['posts']=posts
     context_dict['comments']=comments
+
+    # Comment form
+    form=comment_form()
+    if request.method=='POST':
+        form=comment_form(request.POST)
+        if form.is_valid():
+            if post:
+                form.poster=user
+                form.post=post
+                form.save(commit=True)
+                return index(request)
+        else:
+            print(form.errors)
+    context_dict['form':form]
+    
     response=render(request,'schwitter/view_post.html',context_dict)
     return response
 
@@ -92,6 +120,9 @@ def add_post(request, user):
             print(form.errors)
     return render(request,'schwitter/post.html',{'form':form})
 
+#Not needed as its own page, but need to implement somehow, perhaps on view post?
+
+@login_required
 def add_comment(request,user,post):
     form=comment_form()
     if request.method=='POST':
@@ -104,5 +135,4 @@ def add_comment(request,user,post):
                 return index(request)
         else:
             print(form.errors)
-    return render(request,'schwitter/comment.html',{'form':form})
-            
+    return render(request,'schwitter/comment.html',{'form':form})   
