@@ -6,14 +6,14 @@
 {% endblock %}
 
 {% block body_block %}
-        <h1>{{ user.name }}</h1>
+        <h2 class ="blue">{{ user.name }}</h2>
 	{% if posts %}
             <ul>
             {% for post in posts %}
-                <li><div id='post'>
-			<img src="{% POSTERS PROFILE TODOLATER %}"><a href="{% POSTERS URL %}">{% POSTERS USERNAME %}</a>
-			<p>{% POST TEXT %}</p>
-			<img src="{% POST image %}"</a>
+                <li><li id='post'>
+				<img src="{% POSTERS PROFILE TODOLATER %}"><a href="{% POSTERS URL %}">{% POSTERS USERNAME %}</a>
+				<p>{% POST TEXT %}</p>
+					<img src="{% POST image %}"</a></li>
 			{% if user.is_authenticated %}
 	                        <a href="{% url 'add_comment' %}">Add a comment</a>
                         	{% if notliked %}

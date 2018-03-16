@@ -1,6 +1,6 @@
 body {
 	margin: 0;
-	background: #d4e2f9;
+	background: #f2f7ff;
 	}
 div #topbar {
 	position: fixed;
@@ -18,5 +18,19 @@ div #post{
 	background:#ffffff;
 	}
 
+.blue {
+	color: darkslateblue;
+
+}
+
+.red {
+   color : red;
+	background-color : white;
+   border : 1px solid black;
+}
+.bold{
+
+}
+
 p #post {
-	
+}

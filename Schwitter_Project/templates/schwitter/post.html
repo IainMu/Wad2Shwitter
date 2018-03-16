@@ -6,10 +6,12 @@
 {% endblock %}
 
 {% block body_block %}
-
+    <div class = "post">
     {% csrf_token %}
 
     {{ post_form.as_p }}
+    </div>
+
 
 {% endif %}
 {% endblock %}

@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 
 # Create your models here.
 
@@ -8,6 +9,8 @@ class UserProfile(models.Model):
     user=models.OneToOneField(User)
     registered=models.DateTimeField(auto_now_add=True)
     picture=models.ImageField(upload_to='profile_images',blank=True)
+    #Other users followed by the user
+    #friends = Group.objects.get(name='friends')
 
     def __str__(self):
         return self.user.username

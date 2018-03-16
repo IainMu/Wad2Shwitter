@@ -95,7 +95,7 @@ def user_login(request):
                 login(request,user)
                 return HttpResponseRedirect(reverse('index'))
             else:
-                return HttpResponse("Your Rango account is disabled.")
+                return HttpResponse("Your Schwitter account is disabled.")
         else:
             print("Invalid login details: {0},{1}".format(username,password))
             return HttpResponse("Invalid login details supplied.")

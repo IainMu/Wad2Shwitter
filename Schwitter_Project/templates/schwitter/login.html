@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body_block %}
-<h1>Login to Schwitter</h1>
+<h1 class="blue">Login to Schwitter</h1>
 <form id="login_form" method="post" action="{% url 'login' %}">
     {% csrf_token %}
     Username: <input type="text" name="username" value="" size="50" />
