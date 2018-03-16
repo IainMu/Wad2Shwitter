@@ -1,0 +1,18 @@
+{% extends 'schwitter/base.html' %}
+{% load staticfiles %}
+
+{%block title_block %}
+	Post
+{% endblock %}
+
+{% block body_block %}
+    <div class = "post">
+    {% csrf_token %}
+
+    {{ post_form.as_p }}
+    </div>
+
+
+{% endif %}
+{% endblock %}
+
