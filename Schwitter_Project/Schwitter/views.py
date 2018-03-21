@@ -24,7 +24,7 @@ def options(request):
     context_dict={}
     return render(request,'schwitter/home.html',context_dict)
 
-def viewProfile(request, user):
+def profile(request, user):
     context_dict={}
     comments=[]
     posts=Post.objects.filter(poster=user)

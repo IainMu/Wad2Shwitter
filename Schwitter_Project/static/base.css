@@ -1,22 +1,30 @@
 body {
 	margin: 0;
-	background: #f2f7ff;
+	background: mintcream;
+	font-family: "Lato", sans-serif;
+    transition: background-color .5s;
 	}
 div #topbar {
-	position: fixed;
+	position: relative;
 	top: 0;
 	left: 0;
 	width:100vw;
-	background: #a4c5f9;
+	background: lightsteelblue;
 	}
 
 div #post{
-	position:relative;
+	Position: relative;
 	width:50vw;
 	left:25vw;
-	border: 2px solid #000000;
-	background:#ffffff;
+	background: aliceblue !important;
+	text-align: center;
+
 	}
+
+.center{
+	position: relative;
+	text-align: center;
+}
 
 .blue {
 	color: darkslateblue;
@@ -34,3 +42,37 @@ div #post{
 
 p #post {
 }
+
+
+.custombutton{
+
+    border: none;
+    display: inline-block;
+    padding: 8px 16px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    background-color: inherit;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+	transition: box-shadow 0.4s;
+
+}
+
+.darkgrey {
+	color: whitesmoke !important;
+	background-color: lightslategrey !important;
+}
+
+
+.box:hover {
+  box-shadow: 0 0 20px rgba(71,71,71,.5);
+}
+
+.toprelative{
+	position:relative;
+	top: 50px;
+}
+

@@ -6,13 +6,16 @@
 {% endblock %}
 
 {% block body_block %}
-	<div><h1 class ="blue">Register for Schwitter!</h1></div>
+
 	{% if registered %}
-		<Strong>Thank you for registering!</strong>
+		<div id="post"><h1 class ="blue">Success!</h1></div>
+		<div id="post"><Strong class="center">Thank you for registering!</strong>
 		<a href="{% url 'home' %}">Return to the homepage.</a><br />
+		</div>
 	{% else %}
-		<strong>Just fill out the form below. Easy as 1, 2, 3!</strong><br />
-		<form id="user_form" method="post" action="{% url 'register' %}"
+		<div style=align-content:flex-start; id="topbar"><h1 class ="blue">Register for Schwitter!</h1></div>
+		<div id ="post"  ><strong>Just fill out the form below. Easy as 1, 2, 3!</strong></div>
+		<div id="post"><form id="user_form" method="post" action="{% url 'register' %}"
 			enctype="multipart/form-data">
 
 		{% csrf_token %}
@@ -21,6 +24,7 @@
 		{{ profile_form.as_p }}
 
 		<input type="submit" name="submit" value="Register" />
-	</form>
+		</form>
+		</div>
 	{% endif %}
 {% endblock %}
