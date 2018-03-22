@@ -17,7 +17,7 @@ def main(request):
 
 def about(request):
     context_dict={}
-    return render(request,'schwitter/home.html',context_dict)
+    return render(request,'schwitter/about.html',context_dict)
 
     
 def options(request):

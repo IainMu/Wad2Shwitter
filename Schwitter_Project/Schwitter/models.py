@@ -8,9 +8,9 @@ from django.contrib.auth.models import Group
 class UserProfile(models.Model):
     user=models.OneToOneField(User)
     registered=models.DateTimeField(auto_now_add=True)
-    picture=models.ImageField(upload_to='profile_images',blank=True)
+    picture=models.ImageField(upload_to='profile_images',default='No_img.jpg')
     #Other users followed by the user
-    #friends = Group.objects.get(name='friends')
+    friends = models.ForeignKey('self', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username

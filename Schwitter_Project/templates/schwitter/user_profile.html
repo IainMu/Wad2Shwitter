@@ -6,31 +6,6 @@
 {% endblock %}
 
 {% block body_block %}
-        <h2 class ="blue">{{ user.name }}</h2>
-	{% if posts %}
-            <ul>
-            {% for post in posts %}
-                <li><li id='post'>
-				<img src="{% POSTERS PROFILE TODOLATER %}"><a href="{% POSTERS URL %}">{% POSTERS USERNAME %}</a>
-				<p>{% POST TEXT %}</p>
-					<img src="{% POST image %}"</a></li>
-			{% if user.is_authenticated %}
-	                        <a href="{% url 'add_comment' %}">Add a comment</a>
-                        	{% if notliked %}
-                        		<a href="{% url 'add_like' %}"><img src="{% static "images/like-button.jpg" %}"</a>
-                        		{% likecount %}
-                        	{% else %}
-                        		<a href="{% url 'remove_like' %}"><img src="{% static "images/like-button.jpg" %}"</a>
-                        {% likecount %}
-                    		{% endif %}
-                    	{% else %}
-                         	You need to login to like this post: <a href="{% url 'login' %}"><img src="{% static "images/like-button.jpg" %}"</a>
-                        	{% likecount %}
-                    	{% endif %}
-		</div></li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            <strong>This user has no posts yet.</strong>
-        {% endif %}
+        <h2 class ="blue">{{ }}</h2>
+	{% get_posts_profile 
 {% endblock %}

@@ -1,0 +1,8 @@
+<ul>
+{% for comment in comments %}
+	<li><div id='comment'>
+	<p id='commenter_detail'><img src="{% comment.poster.picture %}"><a href="{% profile comment.poster.username %}">{%comment.poster.user.username%}></a></p>
+	<p id='comment_content'>{% comment.content %}</p>
+	</div></li>
+{% endfor %}
+</ul>
