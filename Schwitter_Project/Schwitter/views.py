@@ -22,7 +22,7 @@ def about(request):
     
 def options(request):
     context_dict={}
-    return render(request,'schwitter/home.html',context_dict)
+    return render(request,'schwitter/settings.html',context_dict)
 
 def profile(request, user):
     context_dict={}

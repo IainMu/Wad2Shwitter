@@ -3,8 +3,8 @@
             {% for post in posts %}
                 <li>
 			<div id='post'>
-				<img src="{% post.poster.picture %}"><a href="{% url 'profile' post.poster.user.username  %}">{% post.poster.user.username %}</a>
-				<p>{% post.content %}</p>
+				<img src="{{ MEDIA_URL }}{{ post.poster.picture }}"><a href="{% url 'profile' post.poster.user.username  %}">{{ post.poster.user.username }}</a>
+				<p>{{ post.content }}</p>
 				{% get_comment_list post %}
 			</div>
 		</li>

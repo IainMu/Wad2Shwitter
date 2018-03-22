@@ -10,7 +10,7 @@ class UserProfile(models.Model):
     registered=models.DateTimeField(auto_now_add=True)
     picture=models.ImageField(upload_to='profile_images',default='No_img.jpg')
     #Other users followed by the user
-    friends = models.ForeignKey('self', on_delete=models.CASCADE)
+    friends = models.ManyToManyField('self')
 
     def __str__(self):
         return self.user.username
