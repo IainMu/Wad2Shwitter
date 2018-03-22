@@ -16,4 +16,5 @@ urlpatterns = [
     url(r'options/$',views.options,name='settings'),
     url(r'register/$',views.register,name='register'),
     url(r'about/$',views.about,name="about"),
+    url(r'contact/$',views.contact,name="contact"),
     ]
