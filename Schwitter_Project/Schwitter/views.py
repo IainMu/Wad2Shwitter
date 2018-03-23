@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from Schwitter.models import Comment
-from Schwitter.models import Post
+from Schwitter.models import Post,UserProfile
 from Schwitter.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
@@ -8,7 +8,8 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from datetime import datetime
-
+from django.contrib.auth.models import User
+from django.shortcuts import redirect
 # Create your views here.
 
 def main(request, user=None):
@@ -19,28 +20,51 @@ def main(request, user=None):
     context_dict={}
     return render(request,'schwitter/home.html',context_dict)
 
+def contact(request):
+    context_dict={}
+    return render(request, 'schwitter/contact.html',context_dict)
+
 def about(request):
     context_dict={}
     return render(request,'schwitter/about.html',context_dict)
 
-def contact(request):
-    context_dict={}
-    return render(request,'schwitter/contact.html',context_dict)
     
 def options(request):
     context_dict={}
     return render(request,'schwitter/settings.html',context_dict)
 
 def profile(request, username):
-    context_dict={}
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return redirect('/schwitter/')
+    except UserProfile.DoesNotExist:
+        return redirect('/schwitter/')
+
+    userprofile = UserProfile.objects.get_or_create(user=user)[0]
+    form = UserProfileForm({"name": user.username,
+                            "following":[]})
+    posts = Post.objects.filter(poster=userprofile)
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect("profile", user.username)
+        else:
+            print(form.errors)
+    context_dict = {"userprofile": userprofile, "user": user,
+                    "form": form,"posts": posts}
+    return render(request,'schwitter/user_profile.html',context_dict)
+
+    
+"""    context_dict={}
     comments=[]
-    posts=Post.objects.order_by('time').filter(poster=username)
+    posts=Post.objects.order_by('time').filter(poster=user)
     for OP in posts:
         comments.append(Comment.objects.order_by('time').filer(post=OP.post))
     context_dict['posts']=posts
-    context_dict['comments']=comments
-    response=render(request,'schwitter/user_profile.html',context_dict)
-    return response
+    context_dict['comments']=comments"""
+
 
 def viewPost(request, post):
     context_dict={}

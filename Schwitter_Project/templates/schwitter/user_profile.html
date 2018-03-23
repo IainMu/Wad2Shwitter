@@ -1,4 +1,4 @@
-{% extends 'rango/base.html' %}
+{% extends 'schwitter/base.html' %}
 {% load staticfiles %}
 
 {% block title_block %}
@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body_block %}
-        <h2 class ="blue">{{ }}</h2>
+        <h2 class ="blue">{{ user.username }}</h2>
 	<ul>
 		{% if posts %}
 			{% for post in posts %}
