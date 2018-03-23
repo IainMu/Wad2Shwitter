@@ -2,7 +2,7 @@
             <ul>
             {% for post in posts %}
                 <li>
-			<div id='post'>
+			<div class ="card" id='post'>
 				<img src="{{ MEDIA_URL }}{{ post.poster.picture }}"><a href="{% url 'profile' post.poster.user.username  %}">{{ post.poster.user.username }}</a>
 				<p>{{ post.content }}</p>
 				{% get_comment_list post %}

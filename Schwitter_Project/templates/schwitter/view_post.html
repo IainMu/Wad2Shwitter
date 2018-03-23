@@ -23,10 +23,11 @@
 	<ul>
 	{% if posts %}
 		{% for post in posts %}
-			<li><div id='post'>
+			<li><div class ="card" id='post'>
 				<p id='poster_detail'><img src="{{ MEDIA_URL }}{{ post.poster.picture }}"><a href="{% url 'profile' post.poster.username %}">{{ post.poster.user.username }}</a></p>
 				<p id='post_content'>{{ post.content }}</p>
 				<ul>
+
 				{% for comment in comments %}
 					<li><div id='comment'>
 						<p id='commenter_detail'><img src="{{ MEDIA_URL }}{{ comment.poster.picture }}"><a href="{% url 'profile'  comment.poster.username %}">{{comment.poster.user.username}}></a></p>
