@@ -11,7 +11,11 @@ from datetime import datetime
 
 # Create your views here.
 
-def main(request):
+def main(request, user=None):
+    if user:
+        context_dict={'posts': Post.objects.order_by('time').filter(poster in user.friends)}
+        comments=[Comment.objects.order_by('time').filer(Post in Post.objects.filter(poster in user.friends))]
+        context_dict['comments'] = comments
     context_dict={}
     return render(request,'schwitter/home.html',context_dict)
 
@@ -24,12 +28,12 @@ def options(request):
     context_dict={}
     return render(request,'schwitter/settings.html',context_dict)
 
-def profile(request, user):
+def profile(request, username):
     context_dict={}
     comments=[]
-    posts=Post.objects.filter(poster=user)
+    posts=Post.objects.order_by('time').filter(poster=username)
     for OP in posts:
-        comments.append(Comment.objects.filer(post=OP.post))
+        comments.append(Comment.objects.order_by('time').filer(post=OP.post))
     context_dict['posts']=posts
     context_dict['comments']=comments
     response=render(request,'schwitter/user_profile.html',context_dict)
@@ -93,7 +97,7 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request,user)
-                return HttpResponseRedirect(reverse('index'))
+                return HttpResponseRedirect(reverse('home'))
             else:
                 return HttpResponse("Your Schwitter account is disabled.")
         else:
@@ -105,7 +109,7 @@ def user_login(request):
 @login_required
 def user_logout(request):
     logout(request)
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('home'))
 
 @login_required
 def add_post(request, user):
