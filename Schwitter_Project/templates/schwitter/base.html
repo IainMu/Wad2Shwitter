@@ -76,14 +76,12 @@
 	{% if user.is_authenticated %}
 		<ul class="topnav">
 		<li class="l"><a class="active" href="{% url 'home' %}">Home</a></li>
-		<li><a href="#news">News</a></li>
 		<li style="float:right"><a href="{% url 'about' %}">About</a></li>
 		<li style="float:right"><a href="{% url 'contact' %}">Contact</a></li>
 		</ul>
 	{%else%}
 		<ul class="topnav">
 		<li class="l"><a class="active" href="{% url 'login' %}">Sign in</a></li>
-		<li class="l"><a href="#news">News</a></li>
 		<li style="float:right"><a href="{% url 'about' %}">About</a></li>
 		<li style="float:right"><a href="{% url 'contact' %}">Contact</a></li>
 		</ul>
