@@ -23,6 +23,9 @@ def about(request):
     context_dict={}
     return render(request,'schwitter/about.html',context_dict)
 
+def contact(request):
+    context_dict={}
+    return render(request,'schwitter/contact.html',context_dict)
     
 def options(request):
     context_dict={}
