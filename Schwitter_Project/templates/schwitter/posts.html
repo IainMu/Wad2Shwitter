@@ -8,7 +8,7 @@
 				{% get_comment_list post %}
 			</div>
 		</li>
-<!--
+
 			{% if user.is_authenticated %}
 	                        <a href="{% url 'add_comment' %}">Add a comment</a>
                         	{% if notliked %}
@@ -22,7 +22,7 @@
                          	You need to login to like this post: <a href="{% url 'login' %}"><img src="{% static "images/like-button.jpg" %}"</a>
                         	{% likecount %}
                     	{% endif %}
--->
+
             {% endfor %}
             </ul>
         {% else %}

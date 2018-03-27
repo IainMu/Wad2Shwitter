@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body_block %}
-        <h2 class ="blue">{{ user.username }}</h2>
+        <h2 class ="blue">{{user.picture}}{{ user.username }}</h2>
 	<ul>
 		{% if posts %}
 			{% for post in posts %}

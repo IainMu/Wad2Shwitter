@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block body_block%}
-    <h1 class="blue center">Why Schwitter?</h1>
+    <h1 class="blue center">Settings &#9881;</h1>
     <div class="card" id="post">
     <div class="container padding525">
         <strong>Click below to change your password:</strong>
         <br />
-        <strong><u>Change Password</u></strong>
+        <strong><a href="{% url 'change_password' %}"><u>Change password</u></a></strong>
     </div>
     </div>
 {% endblock %}
