@@ -1,5 +1,5 @@
 from django.contrib import admin
-from schwitter.models import UserProfile, Post, Comment
+from Schwitter.models import UserProfile, Post, Comment
 
 # Register your models here.
 admin.site.register(UserProfile)
