@@ -79,6 +79,7 @@ def profile(request, username):
             print(form.errors)
     context_dict = {"userprofile": userprofile, "user": user,
                     "form": form,"posts": posts}
+    print(userprofile.picture)
     return render(request,'schwitter/user_profile.html',context_dict)
 
     
