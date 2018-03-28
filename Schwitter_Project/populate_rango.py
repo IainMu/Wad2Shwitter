@@ -90,7 +90,11 @@ def populate():
                 print("added " + comment["poster"] + "'s comment on " + comment["post"])
 
 def add_user(user):
+<<<<<<< HEAD
+    u = User.objects.get_or_create(username = user["username"],password = user["password"], email = user["email"])[0]
+=======
     u = User.objects.get_or_create(username = user["username"], email = user["email"],first_name=user["first"],last_name=user["second"])[0]
+>>>>>>> b40dcea539d299eb9308a292c22e0d3b6ec471f2
     u.set_password(user["password"])
     u.save()
     return u
