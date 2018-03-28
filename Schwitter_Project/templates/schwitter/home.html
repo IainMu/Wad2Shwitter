@@ -10,7 +10,7 @@
 		<ul>
 		{% if posts %}
 			{% for post in posts %}
-				<li><div id='post'>
+				<li><div class ="card" id='post'>
 					<p id='poster_detail'><img src="{{ MEDIA_URL }}{{ post.poster.picture }}"><a href="{% url 'profile' post.poster.username %}">{{ post.poster.user.username }}</a></p>
 					<p id='post_content'>{{ post.content }}</p>
 					<ul>
@@ -18,7 +18,7 @@
 					<li><div id='comment'>
 						<p id='commenter_detail'><img src="{{ MEDIA_URL }}{{ comment.poster.picture }}"><a href="{% url 'profile'  comment.poster.username %}">{{comment.poster.user.username}}></a></p>
 						<p id='comment_content'>{{ comment.content }}</p>
-					</div></li>
+						</div></li>
 					{% endfor %}
 					</ul>
 			</div></li>
@@ -26,9 +26,17 @@
 		</ul>	
 	{% else %}
 		<Strong>None of your friends have posted anything...or maybe you just have no friends :P</Strong>
+		<div class="card" id='post'>
+			<h2>People you may know:</h2>
+			<ul>
+				{% for user in users %}
+				<li>{{ user.picture }}{{ user.username }}</li>
+			</ul>
+				{% endfor %}
+		</div>
 	{% endif %}
-</ul>
+
 	{% else %}
-		<p> This could be posts, if you were logged in </p>
+		<p> Here could be posts, if you were logged in...</p>
 	{% endif %}
 {% endblock %}

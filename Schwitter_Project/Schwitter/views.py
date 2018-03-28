@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from Schwitter.models import Comment
 from Schwitter.models import Post,UserProfile
 from Schwitter.forms import UserForm, UserProfileForm
@@ -9,8 +9,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from datetime import datetime
 from django.contrib.auth.models import User
-from django.shortcuts import redirect
-# Create your views here.
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+
 
 def main(request, user=None):
     if user:
@@ -85,7 +87,7 @@ def viewPost(request, post):
                 return index(request)
         else:
             print(form.errors)
-    context_dict['form':form]
+            context_dict['form':form]
     
     response=render(request,'schwitter/view_post.html',context_dict)
     return response
@@ -132,6 +134,23 @@ def user_login(request):
             return HttpResponse("Invalid login details supplied.")
     else:
         return render(request,'schwitter/login.html',{})
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('home')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'schwitter/change_password.html', {
+        'form': form
+    })
 
 @login_required
 def user_logout(request):

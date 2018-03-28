@@ -5,6 +5,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 LOGIN_URL = '/Schwitter/login/'
 urlpatterns = [
     url(r'^$',views.main, name='home'),
@@ -17,4 +18,5 @@ urlpatterns = [
     url(r'register/$',views.register,name='register'),
     url(r'about/$',views.about,name="about"),
     url(r'contact/$',views.contact,name="contact"),
+    url(r'^password/$', views.change_password,name='change_password'),
     ]
