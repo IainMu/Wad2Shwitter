@@ -12,23 +12,31 @@ def populate():
          {"username": "SchwarnoldSchwarzenegger",
          "password": "gettotheschwoppa",
          "email": "SchwoleSchwarnold@schwotmail.com",
-         "friends": ["SchweizerSchnitzel", "Schweppes"]},
+         "friends": ["SchweizerSchnitzel", "Schweppes"],
+         "first": "Schwarnold",
+         "second": "Schwarzenegger"},
 
         {"username": "SchweizerSchnitzel",
          "password": "Strudel69",
          "email": "Schnitzel@schweiz.ch",
-         "friends": ["SchwarnoldSchwarzenegger", "Igiveup"]},
+         "friends": ["SchwarnoldSchwarzenegger", "Igiveup"],
+         "first": "Schwarnold",
+         "second": "Schwarzenegger"},
 
         {"username": "Schweppes",
          "password": "schwomething",
          "email": "schweppes@schwotmail.com",
-         "friends": ["SchwarnoldSchwarzenegger", "SchweizerSchnitzel", "Igiveup"]}
+         "friends": ["SchwarnoldSchwarzenegger", "SchweizerSchnitzel", "Igiveup"],
+         "first": "Schwarnold",
+         "second": "Schwarzenegger"}
          ,
 
         {"username": "Igiveup",
          "password": "whocares",
          "email": "ehhhhh@Schwotmail.com",
-         "friends": ["SchweizerSchnitzel", "Schweppes"]}
+         "friends": ["SchweizerSchnitzel", "Schweppes"],
+         "first": "Schwarnold",
+         "second": "Schwarzenegger"}
 
     ]
 
@@ -66,13 +74,12 @@ def populate():
 
 
     for user in users:
+        u = add_user(user)
         up = add_userprofile(user)
         print("added " + user["username"])
 
-
-
-    for user in users:
-        add_friends(user)
+   # for user in users:
+   #     add_friends(user)
 
     for post in Posts:
         p = add_post(post)
@@ -83,7 +90,7 @@ def populate():
                 print("added " + comment["poster"] + "'s comment on " + comment["post"])
 
 def add_user(user):
-    u = User.objects.get_or_create(username = user["username"], email = user["email"])[0]
+    u = User.objects.get_or_create(username = user["username"], email = user["email"],first_name=user["first"],last_name=user["second"])[0]
     u.set_password(user["password"])
     u.save()
     return u
@@ -92,6 +99,7 @@ def add_userprofile(user):
     u = UserProfile.objects.get_or_create(user = add_user(user))[0]
     u.save()
     return u
+
 def add_friends(user):
     u = UserProfile.objects.get(user = User.objects.get(username = user["username"]))
     for friend in user["friends"]:

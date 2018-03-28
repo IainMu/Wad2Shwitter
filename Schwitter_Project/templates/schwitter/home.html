@@ -8,6 +8,13 @@
 {% block body_block %}
 	{% if user.is_authenticated %}
 		<ul>
+		<div class = "post">
+		 <form id="Post_Form" method="post" action="{% url 'home' %}">
+   			{% csrf_token %}
+    			{{ form.as_p }}
+		<input type="submit" name="submit" value="Create New Post" />
+		</form>
+   		</div>
 		{% if posts %}
 			{% for post in posts %}
 				<li><div class ="card" id='post'>

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from Schwitter.models import Comment
 from Schwitter.models import Post,UserProfile
-from Schwitter.forms import UserForm, UserProfileForm
+from Schwitter.forms import UserForm, UserProfileForm, PostForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
@@ -14,12 +14,22 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 
 
-def main(request, user=None):
-    if user:
+def main(request,):
+    if request.user:
         context_dict={'posts': Post.objects.order_by('time').filter(poster in user.friends)}
         comments=[Comment.objects.order_by('time').filer(Post in Post.objects.filter(poster in user.friends))]
         context_dict['comments'] = comments
-    context_dict={}
+    if request.method=='POST':
+        form=PostForm(data=request.POST)
+        if form.is_valid():
+            form.poster=UserProfile.objects.get(user=request.user)
+            form.save(commit=True)
+            return index(request)
+        else:
+            print(form.errors)
+    else:
+        form = PostForm()
+    context_dict = {"form":form}
     return render(request,'schwitter/home.html',context_dict)
 
 def contact(request):
@@ -158,12 +168,12 @@ def user_logout(request):
     return HttpResponseRedirect(reverse('home'))
 
 @login_required
-def add_post(request, user):
-    form=post_form()
+def add_post(request):
+    form=PostForm()
     if request.method=='POST':
-        form=post_form(request.POST)
+        form=PostForm(request.POST)
         if form.is_valid():
-            form.poster=user
+            form.poster=UserProfile.objects.get(user=self.request.user)
             form.save(commit=True)
             return index(request)
         else:
