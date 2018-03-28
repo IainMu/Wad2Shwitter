@@ -9,7 +9,7 @@
 	{% if user.is_authenticated %}
 		<ul>
 		<div class = "post">
-		 <form id="Post_Form" method="post" action="{% url 'home' %}">
+		<form id="Post_Form" method="post" action="{% url 'home' %}">
    			{% csrf_token %}
     			{{ form.as_p }}
 		<input type="submit" name="submit" value="Create New Post" />
