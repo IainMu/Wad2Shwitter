@@ -14,22 +14,35 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 
 
-def main(request,):
+def main(request):
+    context_dict={}
+    #If user logged in
     if request.user:
-        context_dict={'posts': Post.objects.order_by('time').filter(poster in user.friends)}
-        comments=[Comment.objects.order_by('time').filer(Post in Post.objects.filter(poster in user.friends))]
-        context_dict['comments'] = comments
+        #Find posts by friends
+        user=request.user
+        up=UserProfile.objects.get(user=user)
+        comments=[]
+        posts=[]
+        for friend in up.friends.all():
+            posts.append(Post.objects.order_by('time').filter(poster=friend))
+            comments.append(Comment.objects.order_by('time').filter(Post=Post.objects.filter(poster=friend)))
+        context_dict['posts'] =posts
+        context_dict['comments']=comments
+
+    #Handle new post form
     if request.method=='POST':
         form=PostForm(data=request.POST)
         if form.is_valid():
-            form.poster=UserProfile.objects.get(user=request.user)
-            form.save(commit=True)
-            return index(request)
+            post = form.save(commit=False)
+            post.poster=UserProfile.objects.get(user=request.user)
+            post.save()
+            return  HttpResponseRedirect(reverse('home'))
         else:
             print(form.errors)
     else:
         form = PostForm()
-    context_dict = {"form":form}
+        
+    context_dict["form"]=form
     return render(request,'schwitter/home.html',context_dict)
 
 def contact(request):
@@ -46,13 +59,13 @@ def options(request):
     return render(request,'schwitter/settings.html',context_dict)
 
 def profile(request, username):
+    #Attempt to find user
     try:
         user = User.objects.get(username=username)
     except User.DoesNotExist:
         return redirect('/schwitter/')
-    except UserProfile.DoesNotExist:
-        return redirect('/schwitter/')
 
+    #if user is found, send all of the information available to context dict
     userprofile = UserProfile.objects.get_or_create(user=user)[0]
     form = UserProfileForm({"name": user.username,
                             "following":[]})
@@ -94,7 +107,7 @@ def viewPost(request, post):
                 form.poster=user
                 form.post=post
                 form.save(commit=True)
-                return index(request)
+                return HttpResponseRedirect(reverse('home'))
         else:
             print(form.errors)
             context_dict['form':form]
@@ -145,6 +158,7 @@ def user_login(request):
     else:
         return render(request,'schwitter/login.html',{})
 
+
 @login_required
 def change_password(request):
     if request.method == 'POST':
@@ -167,6 +181,7 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('home'))
 
+
 @login_required
 def add_post(request):
     form=PostForm()
@@ -175,24 +190,7 @@ def add_post(request):
         if form.is_valid():
             form.poster=UserProfile.objects.get(user=self.request.user)
             form.save(commit=True)
-            return index(request)
+            return  HttpResponseRedirect(reverse('home'))
         else:
             print(form.errors)
     return render(request,'schwitter/post.html',{'form':form})
-
-#Not needed as its own page, but need to implement somehow, perhaps on view post?
-
-@login_required
-def add_comment(request,user,post):
-    form=comment_form()
-    if request.method=='POST':
-        form=comment_form(request.POST)
-        if form.is_valid():
-            if post:
-                form.poster=user
-                form.post=post
-                form.save(commit=True)
-                return index(request)
-        else:
-            print(form.errors)
-    return render(request,'schwitter/comment.html',{'form':form})   

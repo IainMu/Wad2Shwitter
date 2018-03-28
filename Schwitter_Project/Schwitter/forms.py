@@ -18,7 +18,6 @@ class UserProfileForm(forms.ModelForm):
 
 class PostForm(forms.ModelForm):
     #form to create new post
-    poster=forms.ModelChoiceField(widget=forms.HiddenInput(),queryset=UserProfile,initial=None)
     class Meta:
         model=Post
         fields = ('title','content',)
@@ -26,10 +25,6 @@ class PostForm(forms.ModelForm):
 
 class CommentForm(forms.ModelForm):
     #form to create new comment
-    likes = forms.IntegerField(widget=forms.HiddenInput(),initial=0)
-    post = forms.ModelChoiceField(widget=forms.HiddenInput(),queryset=Post,initial=None)
-    poster = forms.ModelChoiceField(widget=forms.HiddenInput(),queryset=UserProfile,initial=None)
-    time=forms.DateTimeField(widget=forms.HiddenInput(),initial=None)
     class Meta:
         model=Comment
         fields = ('content',)
