@@ -83,7 +83,7 @@ def populate():
                 print("added " + comment["poster"] + "'s comment on " + comment["post"])
 
 def add_user(user):
-    u = User.objects.get_or_create(username = user["username"], email = user["email"])[0]
+    u = User.objects.get_or_create(username = user["username"],password = user["password"], email = user["email"])[0]
     u.set_password(user["password"])
     u.save()
     return u
@@ -92,6 +92,7 @@ def add_userprofile(user):
     u = UserProfile.objects.get_or_create(user = add_user(user))[0]
     u.save()
     return u
+
 def add_friends(user):
     u = UserProfile.objects.get(user = User.objects.get(username = user["username"]))
     for friend in user["friends"]:
