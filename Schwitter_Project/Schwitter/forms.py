@@ -15,17 +15,12 @@ class UserProfileForm(forms.ModelForm):
         fields=('picture',)
 
 class PostForm(forms.ModelForm):
-    poster=forms.ModelChoiceField(widget=forms.HiddenInput(),queryset=UserProfile,initial=None)
     class Meta:
         model=Post
         fields = ('title','content',)
 
 
 class CommentForm(forms.ModelForm):
-    likes = forms.IntegerField(widget=forms.HiddenInput(),initial=0)
-    post = forms.ModelChoiceField(widget=forms.HiddenInput(),queryset=Post,initial=None)
-    poster = forms.ModelChoiceField(widget=forms.HiddenInput(),queryset=UserProfile,initial=None)
-    time=forms.DateTimeField(widget=forms.HiddenInput(),initial=None)
     class Meta:
         model=Comment
         fields = ('content',)
